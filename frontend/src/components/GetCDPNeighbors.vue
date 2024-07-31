@@ -1,31 +1,39 @@
 <script setup>
 import {reactive} from 'vue'
-import {Greet} from '../../wailsjs/go/main/App'
+import {GetCDPNeighbors} from '../../wailsjs/go/interfaces/WailsApp'
 
 const data = reactive({
   name: "",
-  resultText: "Please enter your name below 👇",
+  resultText: "Click to get CDP Neighbors from switch 👇",
 })
 
-function greet() {
-  Greet(data.name).then(result => {
-    data.resultText = result
+function get_cdp_neighbors() {
+  GetCDPNeighbors().then((res) => {
+    data.resultText = res
   })
 }
 
 </script>
 
 <template>
-  <main>
+  <main class="main">
     <div id="result" class="result">{{ data.resultText }}</div>
     <div id="input" class="input-box">
-      <input id="name" v-model="data.name" autocomplete="off" class="input" type="text"/>
-      <button class="btn" @click="greet">Greet</button>
+      <button class="btn" @click="get_cdp_neighbors">Get CDP Neighbors</button>
     </div>
   </main>
 </template>
 
 <style scoped>
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
 .result {
   height: 20px;
   line-height: 20px;
@@ -33,7 +41,7 @@ function greet() {
 }
 
 .input-box .btn {
-  width: 60px;
+  width: 160px;
   height: 30px;
   line-height: 30px;
   border-radius: 3px;
