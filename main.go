@@ -2,10 +2,10 @@ package main
 
 import (
 	"embed"
+	"log"
 
 	"Switch-Nexus/src/config"
 	"Switch-Nexus/src/interfaces"
-	"Switch-Nexus/src/middleware"
 	"Switch-Nexus/src/services"
 	"Switch-Nexus/src/utils"
 
@@ -22,10 +22,7 @@ func main() {
 
 	sshConnector, err := utils.NewSSHConnector(conf.SSHHost, conf.SSHUser, conf.SSHPassword)
 	if err != nil {
-		middleware.LogError(&middleware.AppError{
-			Code:    middleware.ErrCodeConnectionFailed,
-			Message: "SSH connection failed",
-		})
+		log.Fatalf("Failed to connect to SSH: %v", err)
 		return
 	}
 
@@ -39,17 +36,15 @@ func main() {
 		AssetServer: &assetserver.Options{
 			Assets: assets,
 		},
-		BackgroundColour: &options.RGBA{R: 27, G: 38, B: 54, A: 1},
-		OnStartup:        app.startup,
+		BackgroundColour: &options.RGBA{R: 33, G: 33, B: 33, A: 1},
+		// OnStartup:        app.startup,
+		// OnShutdown:       app.startup,
 		Bind: []interface{}{
 			app,
 		},
 	})
 
 	if err != nil {
-		middleware.LogError(&middleware.AppError{
-			Code:    middleware.ErrCodeConnectionFailed,
-			Message: err.Error(),
-		})
+		log.Fatalf("Failed to run Wails app: %v", err)
 	}
 }

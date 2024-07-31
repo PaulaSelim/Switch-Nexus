@@ -1,9 +1,9 @@
 package utils
 
 import (
+	"log"
 	"time"
 
-	"github.com/rs/zerolog/log"
 	"golang.org/x/crypto/ssh"
 )
 
@@ -23,7 +23,7 @@ func NewSSHConnector(host, user, password string) (*SSHConnector, error) {
 
 	client, err := ssh.Dial("tcp", host, config)
 	if err != nil {
-		log.Error().Err(err).Msg("Failed to connect to SSH server")
+		log.Fatalf("Failed to dial: %s", err)
 		return nil, err
 	}
 
@@ -33,14 +33,20 @@ func NewSSHConnector(host, user, password string) (*SSHConnector, error) {
 func (s *SSHConnector) RunCommand(command string) (string, error) {
 	session, err := s.client.NewSession()
 	if err != nil {
+		log.Printf("Failed to create session: %s", err)
 		return "", err
 	}
 	defer session.Close()
 
+	log.Printf("Running command: %s", command)
+
 	output, err := session.CombinedOutput(command)
 	if err != nil {
+		log.Printf("Failed to run command: %s", err)
 		return "", err
 	}
+
+	log.Printf("Output: %s", output)
 
 	return string(output), nil
 }

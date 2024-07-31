@@ -16,4 +16,5 @@ func init() {
 		log.Fatal().Err(err).Msg("Failed to create log file")
 	}
 	log.Logger = log.Output(zerolog.MultiLevelWriter(zerolog.ConsoleWriter{Out: os.Stdout}, file))
+	log.Info().Msg("Logger created")
 }
