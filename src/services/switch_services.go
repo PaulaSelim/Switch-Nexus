@@ -10,7 +10,7 @@ func NewSwitchService(sshConnector *utils.SSHConnector) *SwitchService {
 	return &SwitchService{sshConnector: sshConnector}
 }
 
-func (s *SwitchService) ListDirectory(path string) (string, error) {
-	command := "ls " + path
+func (s *SwitchService) GetCDPNeighbors() (string, error) {
+	command := "show cdp neighbors"
 	return s.sshConnector.RunCommand(command)
 }

@@ -15,10 +15,10 @@ func NewWailsApp(service *services.SwitchService) *WailsApp {
 	return &WailsApp{service: service}
 }
 
-func (a *WailsApp) startup(ctx context.Context) {
+func (a *WailsApp) Startup(ctx context.Context) {
 	a.ctx = ctx
 }
 
-func (a *WailsApp) ListDirectory(path string) (string, error) {
-	return a.service.ListDirectory(path)
+func (a *WailsApp) GetCDPNeighbors() (string, error) {
+	return a.service.GetCDPNeighbors()
 }
