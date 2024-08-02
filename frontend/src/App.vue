@@ -1,8 +1,8 @@
 <script setup>
-import HelloWorld from './components/GetCDPNeighbors.vue'</script>
+import GetCDPNeighbors from './components/GetCDPNeighbors.vue'</script>
 
 <template>
-  <HelloWorld/>
+  <GetCDPNeighbors/>
 </template>
 
 <style>
