@@ -4,4 +4,12 @@ import {context} from '../models';
 
 export function GetCDPNeighbors():Promise<string>;
 
+export function GetIPInterface():Promise<string>;
+
+export function GetStatus():Promise<string>;
+
+export function GetVLAN():Promise<string>;
+
+export function Shutdown(arg1:context.Context):Promise<void>;
+
 export function Startup(arg1:context.Context):Promise<void>;

@@ -6,6 +6,22 @@ export function GetCDPNeighbors() {
   return window['go']['wails_interfaces']['WailsInterface']['GetCDPNeighbors']();
 }
 
+export function GetIPInterface() {
+  return window['go']['wails_interfaces']['WailsInterface']['GetIPInterface']();
+}
+
+export function GetStatus() {
+  return window['go']['wails_interfaces']['WailsInterface']['GetStatus']();
+}
+
+export function GetVLAN() {
+  return window['go']['wails_interfaces']['WailsInterface']['GetVLAN']();
+}
+
+export function Shutdown(arg1) {
+  return window['go']['wails_interfaces']['WailsInterface']['Shutdown'](arg1);
+}
+
 export function Startup(arg1) {
   return window['go']['wails_interfaces']['WailsInterface']['Startup'](arg1);
 }
