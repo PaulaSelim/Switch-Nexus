@@ -1,4 +1,4 @@
-package middleware
+package errors
 
 type AppError struct {
 	Code    int

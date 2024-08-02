@@ -1,4 +1,4 @@
-package utils
+package ssh
 
 import (
 	"log"
@@ -11,7 +11,7 @@ type SSHConnector struct {
 	client *ssh.Client
 }
 
-func NewSSHConnector(host, user, password string) (*SSHConnector, error) {
+func NewConnector(host, user, password string) (*SSHConnector, error) {
 	config := &ssh.ClientConfig{
 		User: user,
 		Auth: []ssh.AuthMethod{

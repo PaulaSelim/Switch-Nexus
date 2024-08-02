@@ -1,12 +1,12 @@
-package services
+package switch_services
 
-import "Switch-Nexus/src/utils"
+import "Switch-Nexus/internal/utilities/ssh"
 
 type SwitchService struct {
-	sshConnector *utils.SSHConnector
+	sshConnector *ssh.SSHConnector
 }
 
-func NewSwitchService(sshConnector *utils.SSHConnector) *SwitchService {
+func New(sshConnector *ssh.SSHConnector) *SwitchService {
 	return &SwitchService{sshConnector: sshConnector}
 }
 

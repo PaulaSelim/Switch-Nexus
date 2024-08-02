@@ -4,10 +4,10 @@ import (
 	"embed"
 	"log"
 
-	"Switch-Nexus/src/config"
-	"Switch-Nexus/src/interfaces"
-	"Switch-Nexus/src/services"
-	"Switch-Nexus/src/utils"
+	"Switch-Nexus/internal/config"
+	"Switch-Nexus/internal/interfaces/wails_interfaces"
+	"Switch-Nexus/internal/services/switch_services"
+	"Switch-Nexus/internal/utilities/ssh"
 
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"
@@ -20,14 +20,14 @@ var assets embed.FS
 func main() {
 	conf := config.LoadConfig()
 
-	sshConnector, err := utils.NewSSHConnector(conf.SSHHost, conf.SSHUser, conf.SSHPassword)
+	sshConnector, err := ssh.NewConnector(conf.SSHHost, conf.SSHUser, conf.SSHPassword)
 	if err != nil {
 		log.Fatalf("Failed to connect to SSH: %v", err)
 		return
 	}
 
-	service := services.NewSwitchService(sshConnector)
-	app := interfaces.NewWailsApp(service)
+	service := switch_services.New(sshConnector)
+	app := wails_interfaces.New(service)
 
 	err = wails.Run(&options.App{
 		Title:  "Switch-Nexus",

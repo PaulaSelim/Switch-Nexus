@@ -1,6 +1,6 @@
 <script setup>
 import {reactive} from 'vue'
-import {GetCDPNeighbors} from '../../wailsjs/go/interfaces/WailsApp'
+import {GetCDPNeighbors} from '../../wailsjs/go/wails_interfaces/WailsInterface'
 
 const data = reactive({
   name: "",
