@@ -1,9 +1,7 @@
-<script setup>
-import GetCDPNeighbors from './components/GetCDPNeighbors.vue'</script>
+<script setup></script>
 
 <template>
-  <GetCDPNeighbors/>
+  <RouterView />
 </template>
 
-<style>
-</style>
+<style></style>
