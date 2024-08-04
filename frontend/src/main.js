@@ -18,6 +18,11 @@ app.mount("#app");
 app.use(PrimeVue, {
   theme: {
     preset: Aura,
+    options: {
+      prefix: "p",
+      darkModeSelector: "system",
+      cssLayer: false,
+    },
   },
 });
 
