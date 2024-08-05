@@ -139,6 +139,7 @@ This project is licensed under the AGPL-3.0 License - see the [LICENSE](LICENSE)
 
 For any inquiries or issues, please contact:
 
-**Paula Selim**  
-- Email: [s.paulakhalil@icloud.com](mailto:s.paulakhalil@icloud.com)
+**Paula Selim**
+
+- Email: [paula.selim.contact@icloud.com](mailto:paula.selim.contact@icloud.com)
 - LinkedIn: [Paula Selim](https://www.linkedin.com/in/paula-selim-572507305/)
