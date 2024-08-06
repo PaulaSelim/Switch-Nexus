@@ -13,7 +13,7 @@
     "@primevue/themes": "^4.0.4",
     "icons": "^1.0.0",
     "primeicons": "^7.0.0",
-    "primevue": "^3.53.0",
+    "primevue": "^4.0.0",
     "vue": "^3.2.37",
     "vue-router": "^4.4.2"
   },
