@@ -8,7 +8,7 @@ import Settings from "./views/Settings.vue";
 const routes = [
   { path: "/", component: Home },
   { path: "/login", component: Login },
-  { path: "/switchdetails", component: SwitchDetails },
+  { path: "/switch/:address", component: SwitchDetails },
   { path: "/settings", component: Settings },
 ];
 
