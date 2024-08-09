@@ -7,6 +7,10 @@ import PrimeVue from "primevue/config";
 import Aura from "@primevue/themes/aura";
 import "primeicons/primeicons.css";
 
+import ConfirmationService from 'primevue/confirmationservice'
+import DialogService from 'primevue/dialogservice'
+import ToastService from 'primevue/toastservice';
+
 const app = createApp(App);
 
 app.use(router);
@@ -23,5 +27,9 @@ app.use(PrimeVue, {
     },
   },
 });
+
+app.use(ConfirmationService);
+app.use(ToastService);
+app.use(DialogService);
 
 export default app;
