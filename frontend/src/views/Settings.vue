@@ -7,9 +7,7 @@ import Dialog from "primevue/dialog";
 import Button from "primevue/button";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
-import Tag from "primevue/tag";
 import Toolbar from "primevue/toolbar";
-import FileUpload from "primevue/fileupload";
 import InputText from "primevue/inputtext";
 import IconField from "primevue/iconfield";
 import InputIcon from "primevue/inputicon";
@@ -17,6 +15,10 @@ import { useRouter } from "vue-router";
 import MegaMenu from "primevue/megamenu";
 
 const router = useRouter();
+
+function navigateToPage(home) {
+  router.push("/");
+}
 
 onMounted(() => {
   MySwitchService.getMySwitches().then((data) => (myswitches.value = data));
@@ -62,7 +64,6 @@ const saveMySwitch = () => {
     } else {
       myswitch.value.id = createId();
       myswitch.value.code = createId();
-      myswitch.value.image = "myswitch-placeholder.svg";
       myswitch.value.inventoryStatus = myswitch.value.inventoryStatus
         ? myswitch.value.inventoryStatus.value
         : "INSTOCK";
@@ -109,6 +110,7 @@ const findIndexById = (id) => {
 
   return index;
 };
+
 const createId = () => {
   let id = "";
   var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -117,9 +119,10 @@ const createId = () => {
   }
   return id;
 };
-const exportCSV = () => {
-  dt.value.exportCSV();
-};
+
+// const exportCSV = () => {
+//   dt.value.exportCSV();
+// };
 const confirmDeleteSelected = () => {
   deleteMySwitchesDialog.value = true;
 };
@@ -137,21 +140,21 @@ const deleteSelectedMySwitches = () => {
   });
 };
 
-const getStatusLabel = (status) => {
-  switch (status) {
-    case "INSTOCK":
-      return "success";
+// const getStatusLabel = (status) => {
+//   switch (status) {
+//     case "INSTOCK":
+//       return "success";
 
-    case "LOWSTOCK":
-      return "warn";
+//     case "LOWSTOCK":
+//       return "warn";
 
-    case "OUTOFSTOCK":
-      return "danger";
+//     case "OUTOFSTOCK":
+//       return "danger";
 
-    default:
-      return null;
-  }
-};
+//     default:
+//       return null;
+//   }
+// };
 </script>
 
 <template>
@@ -162,12 +165,14 @@ const getStatusLabel = (status) => {
       
     >
       <template #start>
-        <p class="title">
-            <h1 class="Settings">Settings</h1>
+        <p class="backButton">
+          <i class="pi pi-angle-left" style="font-size: 3rem" @click="navigateToPage"></i>  
+        </p>
+        <p class="title" style="">
+          <h1 class="Settings">Settings</h1>
         </p>
       </template>
       <template #end>
-        <i class="pi pi-cog" style="font-size: 3rem" @click="navigateToPage"></i>
       </template>
     </MegaMenu>
   </div>
@@ -177,13 +182,13 @@ const getStatusLabel = (status) => {
         ref="dt"
         v-model:selection="selectedMySwitches"
         :value="myswitches"
-        dataKey="id"
+        dataKey="IPaddress"
         :paginator="true"
         :rows="10"
         :filters="filters"
         paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
         :rowsPerPageOptions="[5, 10, 25]"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} myswitches"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} Switches"
       >
         <template #header>
           <div class="">
@@ -206,18 +211,19 @@ const getStatusLabel = (status) => {
             icon="pi pi-plus"
             outlined
             rounded
-            class="mr-2"
+            class="roundButton"
             @click="openNew"
-            style="margin-right: 5px;"
+            style="margin-right: 10px;"
           />
             <Button
             icon="pi pi-trash"
             severity="danger"
             outlined
             rounded
+            class ="roundButton"
             @click="confirmDeleteSelected"
             :disabled="!selectedMySwitches || !selectedMySwitches.length"
-            style="margin-right: 10px;"
+            style="margin-right: 0px;"
           />
             <!-- <FileUpload
             uploadIcon="pi pi-file-import"
@@ -243,7 +249,7 @@ const getStatusLabel = (status) => {
           :exportable="false"
         ></Column>
         <Column
-          field="code"
+          field="IPaddress"
           header="IP Address"
           sortable
           style="min-width: 12rem"
@@ -254,37 +260,27 @@ const getStatusLabel = (status) => {
           sortable
           style="min-width: 16rem"
         ></Column>
-        <Column
-          field="inventoryStatus"
-          header="Status"
-          sortable
-          style="min-width: 12rem"
-        >
-          <template #body="slotProps">
-            <Tag
-              :value="slotProps.data.inventoryStatus"
-              :severity="getStatusLabel(slotProps.data.inventoryStatus)"
-            />
-          </template>
-        </Column>
         <Column :exportable="false" style="min-width: 12rem">
           <template #body="slotProps">
-            <Button
-              icon="pi pi-pencil"
-              outlined
-              rounded
-              class="mr-2"
-              @click="editMySwitch(slotProps.data)"
-              style="margin-right: 5px;"
-            />
-            <Button
-              icon="pi pi-trash"
-              outlined
-              rounded
-              severity="danger"
-              @click="confirmDeleteMySwitch(slotProps.data)"
-              style="margin-left: 5px;"
-            />
+             <div style="display: flex; justify-content: flex-end;">
+              <Button
+                icon="pi pi-pencil"
+                outlined
+                rounded
+                class="roundButton"
+                @click="editMySwitch(slotProps.data)"
+                style="margin-right: 5px;"
+              />
+              <Button
+                icon="pi pi-trash"
+                outlined
+                rounded
+                severity="danger"
+                class="roundButton"
+                @click="confirmDeleteMySwitch(slotProps.data)"
+                style="margin-left: 5px;"
+              />
+            </div>
           </template>
         </Column>
       </DataTable>
@@ -315,10 +311,10 @@ const getStatusLabel = (status) => {
           <label for="IP Address" class="block font-bold mb-3">IP Address</label>
           <InputText
             id="IP Address"
-            v-model.trim="myswitch.ip"
+            v-model.trim="myswitch.IPaddress"
             required="true"
             autofocus
-            :invalid="submitted && !myswitch.name"
+            :invalid="submitted && !myswitch.IPaddress"
             fluid
           />
           <small v-if="submitted && !myswitch.name" class="text-red-500"
@@ -326,7 +322,7 @@ const getStatusLabel = (status) => {
           >
         </div>    
       </div>
-
+      
       <template #footer>
         <Button label="Cancel" icon="pi pi-times" text @click="hideDialog" />
         <Button label="Save" icon="pi pi-check" @click="saveMySwitch" />
@@ -408,5 +404,15 @@ const getStatusLabel = (status) => {
 .toolbar{
     border: none !important;
     padding: 0px !important;
+}
+
+.pi-angle-left {
+  padding-right: 0px; 
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.pi-angle-left:hover { 
+  transform: translateY(-2px);
 }
 </style>
