@@ -50,11 +50,13 @@ const saveMySwitch = () => {
   submitted.value = true;
 
   if (myswitch?.value.name?.trim()) {
+    let switches = myswitches.value;
+
     if (myswitch.value.id) {
       myswitch.value.inventoryStatus = myswitch.value.inventoryStatus.value
         ? myswitch.value.inventoryStatus.value
         : myswitch.value.inventoryStatus;
-      myswitches.value[findIndexById(myswitch.value.id)] = myswitch.value;
+      switches[findIndexById(myswitch.value.id)] = myswitch.value;
       toast.add({
         severity: "success",
         summary: "Successful",
@@ -67,7 +69,7 @@ const saveMySwitch = () => {
       myswitch.value.inventoryStatus = myswitch.value.inventoryStatus
         ? myswitch.value.inventoryStatus.value
         : "INSTOCK";
-      myswitches.value.push(myswitch.value);
+      switches.push(myswitch.value);
       toast.add({
         severity: "success",
         summary: "Successful",
@@ -76,10 +78,12 @@ const saveMySwitch = () => {
       });
     }
 
+    MySwitchService.saveMySwitches(switches);
     myswitchDialog.value = false;
     myswitch.value = {};
   }
 };
+
 const editMySwitch = (prod) => {
   myswitch.value = { ...prod };
   myswitchDialog.value = true;
@@ -90,6 +94,7 @@ const confirmDeleteMySwitch = (prod) => {
 };
 const deleteMySwitch = () => {
   myswitches.value = myswitches.value.filter((val) => val.id !== myswitch.value.id);
+  MySwitchService.saveMySwitches(myswitches.value);
   deleteMySwitchDialog.value = false;
   myswitch.value = {};
   toast.add({
@@ -130,6 +135,7 @@ const deleteSelectedMySwitches = () => {
   myswitches.value = myswitches.value.filter(
     (val) => !selectedMySwitches.value.includes(val)
   );
+  MySwitchService.saveMySwitches(myswitches.value);
   deleteMySwitchesDialog.value = false;
   selectedMySwitches.value = null;
   toast.add({
@@ -140,21 +146,6 @@ const deleteSelectedMySwitches = () => {
   });
 };
 
-// const getStatusLabel = (status) => {
-//   switch (status) {
-//     case "INSTOCK":
-//       return "success";
-
-//     case "LOWSTOCK":
-//       return "warn";
-
-//     case "OUTOFSTOCK":
-//       return "danger";
-
-//     default:
-//       return null;
-//   }
-// };
 </script>
 
 <template>
