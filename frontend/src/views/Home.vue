@@ -3,6 +3,8 @@ import SwitchListItem from "../components/SwitchListItem.vue";
 import { reactive } from "vue";
 import { useRouter } from "vue-router";
 import MegaMenu from "primevue/megamenu";
+import MySwitchService from "../service/MySwitchService";
+import { ref, onMounted } from "vue";
 
 const router = useRouter();
 var switches = reactive([]);
@@ -11,25 +13,19 @@ function navigateToPage(settings) {
   router.push("/settings/");
 }
 
-for (let i = 1; i < 31; i++) {
-  switches.push({
-    ipAddress:
-      "127.0.0." + i.toString() + ":" + (Math.random() * 1000).toFixed(0),
-    name: "Mivida " + i.toString(),
-    switchStatus: "active",
+onMounted(() => {
+  MySwitchService.getMySwitches().then((data) => {
+    switches.push(...data);
   });
-}
+});
+
 </script>
 
 <template>
-  <!-- <RouterLink to="/login">Go to Login</RouterLink>
-  <RouterLink to="/settings">Go to Settigs</RouterLink>
-  style="width: auto; height: 80px; border-radius: 6rem; margin: 50px 86px; margin-bottom: 150px; display: flex;" -->
   <div>
     <MegaMenu
       :model="menubar"
       class="menubar"
-      
     >
       <template #start>
         <p class="title">
@@ -45,7 +41,7 @@ for (let i = 1; i < 31; i++) {
     <div v-for="switchitem in switches">
       <SwitchListItem
         class="switch-list-item"
-        :ipAddress="switchitem.ipAddress"
+        :ipAddress="switchitem.IPaddress"
         :switchStatus="switchitem.switchStatus"
         :name="switchitem.name"
       />
