@@ -16,7 +16,7 @@ import MegaMenu from "primevue/megamenu";
 
 const router = useRouter();
 
-function navigateToPage(home) {
+function navigateToHome() {
   router.push("/");
 }
 
@@ -53,29 +53,23 @@ const saveMySwitch = () => {
     let switches = myswitches.value;
 
     if (myswitch.value.id) {
-      myswitch.value.inventoryStatus = myswitch.value.inventoryStatus.value
-        ? myswitch.value.inventoryStatus.value
-        : myswitch.value.inventoryStatus;
       switches[findIndexById(myswitch.value.id)] = myswitch.value;
-      toast.add({
-        severity: "success",
-        summary: "Successful",
-        detail: "MySwitch Updated",
-        life: 3000,
-      });
+      // toast.add({
+      //   severity: "success",
+      //   summary: "Successful",
+      //   detail: "MySwitch Updated",
+      //   life: 3000,
+      // });
     } else {
       myswitch.value.id = createId();
       myswitch.value.code = createId();
-      myswitch.value.inventoryStatus = myswitch.value.inventoryStatus
-        ? myswitch.value.inventoryStatus.value
-        : "INSTOCK";
       switches.push(myswitch.value);
-      toast.add({
-        severity: "success",
-        summary: "Successful",
-        detail: "MySwitch Created",
-        life: 3000,
-      });
+      // toast.add({
+      //   severity: "success",
+      //   summary: "Successful",
+      //   detail: "MySwitch Created",
+      //   life: 3000,
+      // });
     }
 
     MySwitchService.saveMySwitches(switches);
@@ -84,12 +78,12 @@ const saveMySwitch = () => {
   }
 };
 
-const editMySwitch = (prod) => {
-  myswitch.value = { ...prod };
+const editMySwitch = (switc) => {
+  myswitch.value = { ...switc };
   myswitchDialog.value = true;
 };
-const confirmDeleteMySwitch = (prod) => {
-  myswitch.value = prod;
+const confirmDeleteMySwitch = (switc) => {
+  myswitch.value = switc;
   deleteMySwitchDialog.value = true;
 };
 const deleteMySwitch = () => {
@@ -157,7 +151,7 @@ const deleteSelectedMySwitches = () => {
     >
       <template #start>
         <p class="backButton">
-          <i class="pi pi-angle-left" style="font-size: 3rem" @click="navigateToPage"></i>  
+          <i class="pi pi-angle-left" style="font-size: 3rem" @click="navigateToHome"></i>  
         </p>
         <p class="title" style="">
           <h1 class="Settings">Settings</h1>
