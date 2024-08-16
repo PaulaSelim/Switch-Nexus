@@ -11,6 +11,18 @@ import ConfirmationService from 'primevue/confirmationservice'
 import DialogService from 'primevue/dialogservice'
 import ToastService from 'primevue/toastservice';
 
+import { FilterMatchMode } from "@primevue/core/api";
+import { useToast } from "primevue/usetoast";
+import Dialog from "primevue/dialog";
+import Button from "primevue/button";
+import DataTable from "primevue/datatable";
+import Column from "primevue/column";
+import Toolbar from "primevue/toolbar";
+import InputText from "primevue/inputtext";
+import IconField from "primevue/iconfield";
+import InputIcon from "primevue/inputicon";
+import MegaMenu from "primevue/megamenu";
+
 const app = createApp(App);
 
 app.use(router);
@@ -31,5 +43,18 @@ app.use(PrimeVue, {
 app.use(ConfirmationService);
 app.use(ToastService);
 app.use(DialogService);
+
+app.use(FilterMatchMode);
+app.use(useToast);
+app.use(Dialog);
+app.use(Button);
+app.use(DataTable);
+app.use(Column);
+app.use(Toolbar);
+app.use(InputText);
+app.use(IconField);
+app.use(InputIcon);
+app.use(MegaMenu);
+
 
 export default app;
