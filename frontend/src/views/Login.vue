@@ -13,6 +13,12 @@ const formData = reactive({
 
 const handleLogin = () => {
   // Implement login logic here
+  // if (formData.username === "admin" && formData.password === "admin") {
+  //   router.push("/home");
+  // } else {
+  //   alert("Invalid credentials");
+  //   return;
+  // }
   console.log("Login clicked", formData);
   router.push("/");
 };

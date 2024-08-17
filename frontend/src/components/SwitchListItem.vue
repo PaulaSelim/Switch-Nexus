@@ -1,5 +1,4 @@
 <script setup>
-import { defineProps, computed } from "vue";
 import { useRouter } from "vue-router";
 import Badge from "primevue/badge";
 

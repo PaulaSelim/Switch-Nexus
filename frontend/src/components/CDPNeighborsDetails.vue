@@ -1,79 +1,74 @@
 <script setup>
-import {reactive} from 'vue'
-import {GetCDPNeighbors} from '../../wailsjs/go/wails_interfaces/WailsInterface'
+import { reactive } from "vue";
+import { GetCDPNeighbors } from "../../wailsjs/go/wails_interfaces/WailsInterface";
+import Inplace from "primevue/inplace";
+import Button from "primevue/button";
 
 const data = reactive({
-  name: "",
-  resultText: "Click to get CDP Neighbors from switch 👇",
-})
+  resultText: "Getting CDP Neighbors ...",
+});
+
+const props = defineProps({
+  host: String,
+});
 
 function get_cdp_neighbors() {
-  GetCDPNeighbors().then((res) => {
-    data.resultText = res
-  })
+  GetCDPNeighbors(props.host).then((res) => {
+    data.resultText = res;
+  });
 }
-
 </script>
 
 <template>
   <main class="main">
-    <div id="result" class="result">{{ data.resultText }}</div>
-    <div id="input" class="input-box">
-      <button class="btn" @click="get_cdp_neighbors">Get CDP Neighbors</button>
-    </div>
+    <Inplace>
+      <template #display>
+        <div class="input-box">
+          <Button class="btn" @click="get_cdp_neighbors">
+            Get CDP Neighbors
+          </Button>
+        </div>
+      </template>
+      <template #content>
+        <div class="result">{{ data.resultText }}</div>
+      </template>
+    </Inplace>
   </main>
 </template>
 
 <style scoped>
-
 .main {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  height: 100%;
+  justify-content: center;
+}
+
+.btn {
+  width: 200px;
+  padding: 12px;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
 }
 
 .result {
-  height: 20px;
-  line-height: 20px;
-  margin: 1.5rem auto;
+  font-family: "sans-serif", monospace;
+  background-color: #000;
+  color: white;
+  padding: 20px;
+  border-radius: 5px;
+  margin-top: 20px;
+  white-space: pre-wrap;
+  width: 100%;
+  max-width: 800px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
-.input-box .btn {
-  width: 160px;
-  height: 30px;
-  line-height: 30px;
-  border-radius: 3px;
-  border: none;
-  margin: 0 0 0 20px;
-  padding: 0 8px;
-  cursor: pointer;
-}
-
-.input-box .btn:hover {
-  background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
-  color: #333333;
-}
-
-.input-box .input {
-  border: none;
-  border-radius: 3px;
-  outline: none;
-  height: 30px;
-  line-height: 30px;
-  padding: 0 10px;
-  background-color: rgba(240, 240, 240, 1);
-  -webkit-font-smoothing: antialiased;
-}
-
-.input-box .input:hover {
-  border: none;
-  background-color: rgba(255, 255, 255, 1);
-}
-
-.input-box .input:focus {
-  border: none;
-  background-color: rgba(255, 255, 255, 1);
+::v-deep .p-inplace-display {
+  padding: 0 !important;
 }
 </style>
