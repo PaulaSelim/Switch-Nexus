@@ -9,7 +9,7 @@ import { ref, onMounted } from "vue";
 const router = useRouter();
 var switches = reactive([]);
 
-function navigateToPage(settings) {
+function navigateToPage() {
   router.push("/settings/");
 }
 
