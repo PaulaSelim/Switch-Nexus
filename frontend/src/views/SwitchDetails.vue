@@ -10,7 +10,7 @@ import MegaMenu from "primevue/megamenu";
 const route = useRoute();
 const router = useRouter();
 
-function navigateToHome() {
+function navigateToPage() {
   router.push("/");
 }
 

@@ -20,7 +20,7 @@ const handleLogin = () => {
   //   return;
   // }
   console.log("Login clicked", formData);
-  router.push("/home");
+  router.push("/");
 };
 </script>
 
