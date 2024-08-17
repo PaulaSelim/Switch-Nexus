@@ -6,7 +6,6 @@ toolchain go1.22.2
 
 require (
 	github.com/joho/godotenv v1.4.0
-	github.com/rs/zerolog v1.26.1
 	github.com/wailsapp/wails/v2 v2.9.1
 	golang.org/x/crypto v0.23.0
 )
