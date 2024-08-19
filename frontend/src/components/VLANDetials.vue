@@ -5,17 +5,21 @@ import Inplace from "primevue/inplace";
 import Button from "primevue/button";
 
 const data = reactive({
-  resultText: "Getting CDP Neighbors ...",
+  resultText: "Getting VLAN Details ...",
 });
 
 const props = defineProps({
   host: String,
 });
 
-function get_cdp_neighbors() {
-    GetVLAN(props.host).then((res) => {
-    data.resultText = res;
-  });
+function get_VLAN_Details() {
+  GetVLAN(props.host)
+    .then((res) => {
+      data.resultText = res;
+    })
+    .catch((err) => {
+      data.resultText = err;
+    });
 }
 </script>
 
@@ -24,7 +28,7 @@ function get_cdp_neighbors() {
     <Inplace>
       <template #display>
         <div class="input-box">
-          <Button class="btn" @click="get_cdp_neighbors">
+          <Button class="btn" @click="get_VLAN_Details">
             Get CDP Neighbors
           </Button>
         </div>
