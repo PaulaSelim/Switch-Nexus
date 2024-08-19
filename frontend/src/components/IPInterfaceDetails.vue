@@ -13,9 +13,13 @@ const props = defineProps({
 });
 
 function get_IP_Interface() {
-    GetIPInterface(props.host).then((res) => {
-    data.resultText = res;
-  });
+  GetIPInterface(props.host)
+    .then((res) => {
+      data.resultText = res;
+    })
+    .catch((err) => {
+      data.resultText = err;
+    });
 }
 </script>
 
