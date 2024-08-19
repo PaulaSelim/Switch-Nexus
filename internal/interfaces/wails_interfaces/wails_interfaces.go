@@ -1,15 +1,16 @@
 package wails_interfaces
 
 import (
+	"Switch-Nexus/internal/utilities/ping"
 	"Switch-Nexus/internal/utilities/ssh"
 	"context"
 	"log"
 )
 
 type WailsInterface struct {
-	ctx     context.Context
-	user	string
-	pass    string
+	ctx  context.Context
+	user string
+	pass string
 }
 
 func New(user, password string) *WailsInterface {
@@ -25,15 +26,19 @@ func (a *WailsInterface) Shutdown(ctx context.Context) {
 }
 
 func (a *WailsInterface) GetStatus(host string) (string, error) {
-	log.Printf("GetStatus on: %s:",host)
-	return "Status", nil
+	pingStatus, err := ping.PingServer(host)
+	if err != nil {
+		return "", err
+	}
+	return pingStatus, nil
 }
 
 func (a *WailsInterface) GetVLAN(host string) (string, error) {
 	log.Printf("GetVLAN on: %s, with credentials: user(%s) pass(%s)", host, a.user, a.pass)
 	sshConnector, err := ssh.NewConnector(host, a.user, a.pass)
 	if err != nil {
-		log.Fatalf("Failed to connect to SSH: %v", err)
+		log.Printf("Failed to connect to SSH: %v", err)
+		return "", err
 	}
 	// command := "ipconfig"
 	command := "show vlan"
@@ -44,7 +49,8 @@ func (a *WailsInterface) GetCDPNeighbors(host string) (string, error) {
 	log.Printf("GetCDPNeighbors on: %s, with credentials: user(%s) pass(%s)", host, a.user, a.pass)
 	sshConnector, err := ssh.NewConnector(host, a.user, a.pass)
 	if err != nil {
-		log.Fatalf("Failed to connect to SSH: %v", err)
+		log.Printf("Failed to connect to SSH: %v", err)
+		return "", err
 	}
 	// command := "ipconfig"
 	command := "show cdp neighbors"
@@ -55,7 +61,8 @@ func (a *WailsInterface) GetIPInterface(host string) (string, error) {
 	log.Printf("GetIPInterface on: %s, with credentials: user(%s) pass(%s)", host, a.user, a.pass)
 	sshConnector, err := ssh.NewConnector(host, a.user, a.pass)
 	if err != nil {
-		log.Fatalf("Failed to connect to SSH: %v", err)
+		log.Printf("Failed to connect to SSH: %v", err)
+		return "", err
 	}
 	// command := "systeminfo"
 	command := "show ip interface brief"
