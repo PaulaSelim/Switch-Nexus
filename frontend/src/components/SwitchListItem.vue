@@ -1,6 +1,8 @@
 <script setup>
 import { useRouter } from "vue-router";
 import Badge from "primevue/badge";
+import { GetStatus } from "../../wailsjs/go/wails_interfaces/WailsInterface";
+import { onMounted, reactive } from "vue";
 
 const router = useRouter();
 
@@ -9,10 +11,29 @@ function navigateToPage(ipAddress) {
   router.push("/switch/" + safeIPAddress);
 }
 
+const data = reactive({
+  status: "contrast",
+});
+
 const props = defineProps({
   ipAddress: String,
   switchStatus: String,
   name: String,
+});
+
+function get_status() {
+  var addr = props.ipAddress.split(":")[0];
+  GetStatus(addr)
+    .then((res) => {
+      if (res == "success") data.status = "success";
+    })
+    .catch((err) => {
+      data.status = "danger";
+    });
+}
+
+onMounted(() => {
+  get_status();
 });
 </script>
 
@@ -25,7 +46,7 @@ const props = defineProps({
       <h4 class="ip-address">Host: {{ ipAddress }}</h4>
       <h1 class="name">{{ name }}</h1>
       <p class="badge">
-        status: <Badge class="badge-dot" value="" severity="success" />
+        status: <Badge class="badge-dot" value="" :severity="data.status" />
       </p>
     </div>
   </div>
@@ -45,7 +66,7 @@ const props = defineProps({
 }
 
 .ip-address {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 500;
   margin: 0;
   color: var(--p-surface-500);
@@ -70,13 +91,13 @@ const props = defineProps({
 }
 
 .name {
-  font-size: 1.5rem;
+  font-size: 24px;
   font-weight: 700;
   margin: 5px -1px;
 }
 
 .badge {
-  font-size: 10px;
+  font-size: 14px;
   font-weight: 500;
   margin: 0;
   color: var(--p-surface-500);
