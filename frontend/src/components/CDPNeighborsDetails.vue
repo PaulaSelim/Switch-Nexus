@@ -13,9 +13,13 @@ const props = defineProps({
 });
 
 function get_cdp_neighbors() {
-  GetCDPNeighbors(props.host).then((res) => {
-    data.resultText = res;
-  });
+  GetCDPNeighbors(props.host)
+    .then((res) => {
+      data.resultText = res;
+    })
+    .catch((err) => {
+      data.resultText = err;
+    });
 }
 </script>
 
