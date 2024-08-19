@@ -29,7 +29,7 @@ function get_VLAN_Details() {
       <template #display>
         <div class="input-box">
           <Button class="btn" @click="get_VLAN_Details">
-            Get CDP Neighbors
+            Get VLAN Details
           </Button>
         </div>
       </template>
