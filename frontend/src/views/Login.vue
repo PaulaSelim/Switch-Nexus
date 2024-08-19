@@ -11,16 +11,19 @@ const formData = reactive({
   password: "",
 });
 
+const data = reactive({
+  username: "",
+  password: "",
+  response: "",
+});
+
 const handleLogin = () => {
-  // Implement login logic here
-  // if (formData.username === "admin" && formData.password === "admin") {
-  //   router.push("/home");
-  // } else {
-  //   alert("Invalid credentials");
-  //   return;
-  // }
-  console.log("Login clicked", formData);
-  router.push("/");
+  if (data.username === "admin" && data.password === "admin") {
+    router.push("/home");
+  } else {
+    data.response = "Invalid username or password";
+    return;
+  }
 };
 </script>
 
@@ -31,7 +34,7 @@ const handleLogin = () => {
       <div class="input-wrapper">
         <i class="pi pi-user input-icon"></i>
         <InputText
-          v-model="formData.username"
+          v-model="data.username"
           placeholder="USERNAME"
           class="input-field"
         />
@@ -40,11 +43,12 @@ const handleLogin = () => {
         <i class="pi pi-lock input-icon"></i>
         <InputText
           type="password"
-          v-model="formData.password"
+          v-model="data.password"
           placeholder="PASSWORD"
           class="input-field"
         />
       </div>
+      <p class="response">{{ data.response }}</p>
       <Button @click="handleLogin" label="LOGIN" class="login-button" />
     </div>
   </div>
@@ -105,5 +109,9 @@ const handleLogin = () => {
 .login-button:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+}
+
+.response {
+  color: red;
 }
 </style>
