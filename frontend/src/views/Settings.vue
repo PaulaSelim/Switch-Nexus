@@ -17,7 +17,7 @@ import MegaMenu from "primevue/megamenu";
 const router = useRouter();
 
 function navigateToHome() {
-  router.push("/");
+  router.push("/home");
 }
 
 onMounted(() => {
