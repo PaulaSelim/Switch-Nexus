@@ -23,7 +23,7 @@ func NewConnector(host, user, password string) (*SSHConnector, error) {
 
 	client, err := ssh.Dial("tcp", host, config)
 	if err != nil {
-		log.Fatalf("Failed to dial: %s", err)
+		log.Printf("Failed to dial: %s", err)
 		return nil, err
 	}
 
