@@ -1,10 +1,10 @@
 package config
 
 import (
-	"log"
-	"os"
+	// "log"
+	// "os"
 
-	"github.com/joho/godotenv"
+	// "github.com/joho/godotenv"
 )
 
 type Config struct {
@@ -13,19 +13,21 @@ type Config struct {
 }
 
 func LoadConfig() *Config {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatalf("Error loading .env file")
-	}
+	// err := godotenv.Load()
+	// if err != nil {
+	// 	log.Fatalf("Error loading .env file")
+	// }
 
 	config := &Config{
-		SSHUser:     os.Getenv("SSH_USER"),
-		SSHPassword: os.Getenv("SSH_PASSWORD"),
+		// SSHUser:     os.Getenv("SSH_USER"),
+		// SSHPassword: os.Getenv("SSH_PASSWORD"),
+		SSHUser:     "cwuser",
+		SSHPassword: "D@5leEn%",
 	}
 
-	if config.SSHUser == "" || config.SSHPassword == "" {
-		log.Fatalf("Required environment variables are not set")
-	}
+	// if config.SSHUser == "" || config.SSHPassword == "" {
+	// 	log.Fatalf("Required environment variables are not set")
+	// }
 
 	return config
 }
