@@ -6,8 +6,8 @@ import SwitchDetails from "./views/SwitchDetails.vue";
 import Settings from "./views/Settings.vue";
 
 const routes = [
-  { path: "/", component: Home },
-  { path: "/login", component: Login },
+  { path: "/home", component: Home },
+  { path: "/", component: Login },
   { path: "/switch/:address", component: SwitchDetails },
   { path: "/settings", component: Settings },
 ];
