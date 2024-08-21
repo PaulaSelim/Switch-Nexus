@@ -1,7 +1,7 @@
 <script setup>
 import CDPNeighborsDetails from "../components/CDPNeighborsDetails.vue";
 import IPInterfaceDetails from "../components/IPInterfaceDetails.vue";
-import VLANDetials from "../components/VLANDetials.vue";
+import VLANDetails from "../components/VLANDetails.vue";
 import { useRoute } from "vue-router";
 import { ref, reactive } from "vue";
 import { useRouter } from "vue-router";
@@ -36,7 +36,7 @@ var address = ref(route.params.address.replace(/\-/g, ".").replace(/\=/g, ":"));
     </MegaMenu>
     <CDPNeighborsDetails :host="address" />
     <IPInterfaceDetails :host="address" />
-    <VLANDetials :host="address" />
+    <VLANDetails :host="address" />
   </div>
 </template>
 <style>
