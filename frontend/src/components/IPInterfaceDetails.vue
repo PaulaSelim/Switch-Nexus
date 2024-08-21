@@ -1,19 +1,19 @@
 <script setup>
 import { reactive } from "vue";
-import { GetCDPNeighbors } from "../../wailsjs/go/wails_interfaces/WailsInterface";
+import { GetIPInterface } from "../../wailsjs/go/wails_interfaces/WailsInterface";
 import Inplace from "primevue/inplace";
 import Button from "primevue/button";
 
 const data = reactive({
-  resultText: "Getting CDP Neighbors ...",
+  resultText: "Getting IP Interface Details ...",
 });
 
 const props = defineProps({
   host: String,
 });
 
-function get_cdp_neighbors() {
-  GetCDPNeighbors(props.host)
+function get_IP_Interface() {
+  GetIPInterface(props.host)
     .then((res) => {
       data.resultText = res;
     })
@@ -28,8 +28,8 @@ function get_cdp_neighbors() {
     <Inplace>
       <template #display>
         <div class="input-box">
-          <Button class="btn" @click="get_cdp_neighbors">
-            Get CDP Neighbors
+          <Button class="btn" @click="get_IP_Interface">
+            Get IP Interface Details
           </Button>
         </div>
       </template>
