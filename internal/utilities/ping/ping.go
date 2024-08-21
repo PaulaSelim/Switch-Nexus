@@ -13,7 +13,7 @@ func PingServer(host string) (string, error) {
 		fmt.Printf("Failed to create pinger for server: %v \n %v", host, err)
 		return "", err
 	}
-	pinger.Count = 3
+	pinger.Count = 6
 	err = pinger.Run() // Blocks until finished.
 	if err != nil {
 		fmt.Printf("Failed to ping server: %v \n %v", host, err)
